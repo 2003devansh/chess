@@ -34,6 +34,8 @@ app.get("/" , (req,res)=>{
 io.on("connection" ,(uniqueSocket)=>{
     console.log("connected");  
 
+
+    // this whole part shows the if some-one get connected
     if(!players.white){
         players.white  = uniqueSocket.id; 
         uniqueSocket.emit("playerRole","w") ;
@@ -48,7 +50,22 @@ io.on("connection" ,(uniqueSocket)=>{
     // and give its unique id name :- uniqueSocket.id 
     // and make a call to the front-end that the player is been created
     // and assinging its player  role to black .
+    }else{
+        uniqueSocket.emit("Spectator role") ;
+        // if neither of this condition are true then the player will assingn to the spectator role
     }
+
+    // And this part is for the person if person get disconnected 
+    uniqueSocket.on("disconnect" , ()=>{
+    // if unique.socket id is equal to the either if the player then disconnect the game
+    if(uniqueSocket.id == players.white){
+         delete players.white ;
+
+    }else if(uniqueSocket.id == players.black ){
+      delete players.black ; 
+      
+    }
+    })
 })
 
 server.listen(3000,()=>{
