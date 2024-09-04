@@ -66,7 +66,41 @@ io.on("connection" ,(uniqueSocket)=>{
       
     }
     })
+    // this functionality will check if the valid  player is making the valid move or not 
+
+    uniqueSocket.on("move" , ()=>{
+        try{
+            if(chess.turn() === 'w' && uniqueSocket.id != players.white){
+                return  ; 
+                // chess.turn is a function  in chess class
+            }
+            if(chess.turn() === 'b' && uniqueSocket.id != players.black){
+                return  ; 
+                // chess.turn is a function  in chess class
+            }
+            // even if the wrong player will make a move it will get back to its place 
+
+            const result = chess.move(move) ;
+            if(result){
+                currentPlayer = chess.turn() ;
+                io.emit("move",move) ; 
+                io.emit("boardState",chess.fen()) ;
+            // this thing will check if current palyer is valid then it can make a move
+            // and will emit to all the player and spectator 
+            // and it will also emit the current condition of the board
+            // this can be done by the chess.fen() function 
+            }
+        }catch(err){
+           console.log(err);
+           uniqueSocket.emit("Invalid move ",move) ; 
+           // io.emit is for all the player in front end 
+           // and uniqueSocket.emit is for the particular player  
+        }
+    })
 })
+
+
+
 
 server.listen(3000,()=>{
     console.log("listing on port 3000");
