@@ -51,7 +51,7 @@ io.on("connection" ,(uniqueSocket)=>{
     // and make a call to the front-end that the player is been created
     // and assinging its player  role to black .
     }else{
-        uniqueSocket.emit("Spectator role") ;
+        uniqueSocket.emit("SpectatorRole") ;
         // if neither of this condition are true then the player will assingn to the spectator role
     }
 
