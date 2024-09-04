@@ -29,8 +29,8 @@ const renderBoard = () => {
             "piece" ,
             square.color === "w" ? "white" : "black"
         ); 
-        pieceElement = "" ; 
-        
+        pieceElement.innerText = "" ; 
+
       }
        
     })
