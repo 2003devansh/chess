@@ -68,7 +68,7 @@ io.on("connection" ,(uniqueSocket)=>{
     })
     // this functionality will check if the valid  player is making the valid move or not 
 
-    uniqueSocket.on("move" , ()=>{
+    uniqueSocket.on("move" , (move)=>{
         try{
             if(chess.turn() === 'w' && uniqueSocket.id != players.white){
                 return  ; 
