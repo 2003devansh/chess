@@ -30,6 +30,10 @@ const renderBoard = () => {
             square.color === "w" ? "white" : "black"
         ); 
         pieceElement.innerText = "" ; 
+        if(pieceElement.draggable){
+            draggedPiece = pieceElement ;
+            sourceSquare  = {row:rowindex , col :  squareindex} ;
+        }
 
       }
        
